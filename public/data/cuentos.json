@@ -57,12 +57,12 @@
         {
             "id": 11, 
             "texto": "Los patitos hacían cuanto se les ordenaba; pero los otros patos del corral los miraban diciendo en voz alta:-¡Vean eso! Ahora tendremos que aguantar también a toda esa tribu, como si no nos bastáramos nosotros. Además..., ¡oh, querida, qué feo ese patito! No se lo puede mirar. Y un pato corrió hacia el patito feo y le dio un picotazo en el cuello.-¡Déjalo! -suplicó la madre-. No hace daño a nadie. -Puede que no -replicó el que había atizado el picotazo-. Pero es tan desmañado y raro que dan ganas de darle una paliza. -Todos esos otros patitos son muy hermosos -dijo el pato viejo, el que tenía el trapo atado a la pata-.",
-            "modelo3D": "/modelosP/escena5.glb"
+            "modelo3D": "/modelosP/escena6.glb"
         }, 
         {
             "id": 12, 
             "texto": " Muy bonitos todos, excepto ése, que resultó un ejemplar bastante desdichado. Es una lástima que no se lo pueda empollar de nuevo.-Eso es imposible, señoría -respondió mamá pata-. Ya sé que no es lindo, pero se porta bien y nada con tanta destreza como los otros. Hasta podría aventurarme a decir que mejorará con la edad, o quizá también disminuya de tamaño a tiempo. Estuvo mucho tiempo dentro del huevo, y por eso no saliócon muy buen estado. -Palmeó al patito en el pescuezo y agregó: -Además, es un varoncito, de modo que su belleza física no importa mucho. Creo que será muy fuerte, y que sabrá abrirse camino en el mundo.",
-            "modelo3D": "/modelosPescena6.glb"
+            "modelo3D": "/modelosP/escena6.glb"
         }, 
         {
             "id": 13, 
@@ -177,12 +177,12 @@
         {
             "id": 35, 
             "texto": " Luego corrieron hacia su padre y su madre, arrojaron más pan al agua, y uno de ellos añadió, coreado por todos: -¡Ese nuevo es el más bonito de todos! ¡Es tan joven! ¡Tan elegante! El patito se sintió cohibido y escondió la cabeza bajo las alas. No sabía qué pensar. Era muy feliz, pero sin orgullo, pues su buen corazón nunca se dejaba llevar por ese sentimiento. Recordó cuántas veces había sido corrido y despreciado, sin soñar que un día iba a oír decir que era el más hermoso de los pájaros. Las lilas inclinaron sus ramas hacia el agua en su presencia; y el sol se puso más cálido y acogedor que nunca. Y él agitó las alas, alzó su esbelto cuello y dijo lleno de júbilo: “Nunca imaginé semejante felicidad cuando yo era el Patito Feo”.",
-            "modelo3D": "/modelosP/escena19.glb"
+            "modelo3D": "/modelosP/escena18.glb"
         },
         {
             "id": 36, 
             "texto": "Fin",
-            "modelo3D": "/modelosP/escena19.glb"
+            "modelo3D": "/modelosP/escena18.glb"
         }
     ]
 }
