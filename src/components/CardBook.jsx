@@ -31,7 +31,7 @@ function CardBook (){
             className="flex flex-col items-center p-3.5 rounded-xl m-1 hover:bg-[#FFF5E1] hover:text-[#CF8D00]">
             <h1 className="pb-1">{cuento.titulo}</h1>
             <img 
-                src="../public/image/jardin2.png" 
+                src="../public/image/pPatitoFeo.png" 
                 alt="portada del libro" 
                 className="
                     w-34

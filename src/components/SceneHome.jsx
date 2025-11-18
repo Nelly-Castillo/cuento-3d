@@ -1,34 +1,60 @@
-import {  Html, OrbitControls, Stats, useProgress } from '@react-three/drei';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { Suspense } from 'react';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useEffect, useRef, Suspense } from 'react'; 
+import { Canvas, useLoader, useFrame } from '@react-three/fiber'; 
+import { Html, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
+import * as THREE from 'three'; 
+
+const MODELO_FIJO = '/modelosP/jardCuento.glb';
 
 function Loader() {
-    const { progress } = useProgress()
-    console.log(progress)
-    return <Html center>{progress} % loaded</Html>
+    const { progress } = useProgress();
+    return <Html center>{progress.toFixed(0)} % </Html>;
 }
 
+function Model() {
+    //     const gltf = useLoader(GLTFLoader, modelPath, (loader) => {
+    //     loader.manager.reset();
+    // });
+    const { scene, animations } = useGLTF(MODELO_FIJO); 
+    const group = useRef();
+    const mixer = useRef();
 
-const SceneHome = () => {
-    const gltf = useLoader(GLTFLoader, '../public/modelosP/villa.glb')
+    useEffect(() => {
+        if (animations && animations.length > 0) {
+            mixer.current = new THREE.AnimationMixer(scene); 
+            const action = mixer.current.clipAction(animations[0]); 
+            action.play();
+        }
+    }, [scene, animations]);
+
+    useFrame((_, delta) => {
+        if (mixer.current) mixer.current.update(delta);
+    });
 
     return (
-        <Suspense fallback={<Loader />}>
-        <Canvas className='w-1/2 h-full' camera={{ position: [-0.5, 1, 2] }} shadows >
-            <ambientLight intensity={10} />
-            <primitive
-            object={gltf.scene}
-            position={[0, 0, 0]}
-            scale={[1, 1, 1]}
-            children-0-castShadow
-            />
-            <OrbitControls target={[0, 1, 0]}   minDistance={2}
-            maxDistance={10} />
-            {/* <Stats /> */}
-        </Canvas>
-        </Suspense>
+        <primitive 
+            ref={group} 
+            object={scene} 
+            scale={1} 
+            position={[0, -1, 0]} 
+            castShadow 
+            receiveShadow 
+        />
     );
-};
 
-export default SceneHome;
+}
+
+export default function SceneHome() {
+    
+useGLTF.preload(MODELO_FIJO);
+
+    return (
+        <Canvas className="w-1/2 h-full  " camera={{ position: [-0.5, 1, 2] }} shadows>
+            <ambientLight intensity={1.2} />
+            <directionalLight position={[2, 5, 3]} intensity={2} castShadow />
+            <Suspense fallback={<Loader />}>
+            <Model/> 
+            </Suspense>
+            <OrbitControls target={[0, 1, 0]} minDistance={2} maxDistance={10} />
+        </Canvas>
+    );
+}

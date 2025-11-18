@@ -1,9 +1,9 @@
-import logo from '../../public/image/Logo.svg'
+import logo from '/image/Logo.svg'
 import SearchBox from './SearchBox';
 import { Link } from 'react-router-dom';
 function NavBar() {
     return(
-        <nav className='p-2'>
+        <nav className='p-2 z-10'>
             <div className='flex items-center justify-evenly h-1/6'>
                 <div className='flex items-center cursor-pointer'>
                     <Link to="/">
