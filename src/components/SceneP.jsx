@@ -54,8 +54,8 @@ const SceneP = ({ modelPath, pageKey }) => {
         <Canvas className='w-screen h-sreen' camera={{ position: [5, 0, 5] }} shadows >
             <Suspense fallback={<Loader />}>
             {/* <Canvas className='w-screen h-sreen' camera={{ position: [-0.5, 1, 2] }} shadows > */}
-                <ambientLight intensity={0.5}  color="yellow"/>
-                <directionalLight position={[2 , 5, 3]} intensity={2} castShadow />
+                <ambientLight intensity={1.5}/>
+                <directionalLight position={[5 , 0, 5]} intensity={2} castShadow />
                 <SceneModel  modelPath={modelPath} />
                 {/* <primitive
                 object={gltf.scene}

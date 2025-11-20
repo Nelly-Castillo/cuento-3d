@@ -8,15 +8,12 @@ export default function Story() {
     const [indiceInicio, setIndiceInicio] = useState(0);
     const parrafosPorPantalla = 2;
     const [modelo3DActual, setModelo3DActual] = useState(null);
-    const [dataCuentos, setDataCuentos] = useState(null);
 
     useEffect(() => {
         fetch('/data/cuentos.json')
         .then(res => res.json())
         .then(data => {
             setCuento(data);
-            const cuentoEncontrado = data.find(c => c.id.toString() === id);
-            setCuento(cuentoEncontrado);
         })
         .catch(err => console.error('Error al cargar el cuento:', err));
     }, [id]);
