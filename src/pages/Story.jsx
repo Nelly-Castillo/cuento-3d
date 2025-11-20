@@ -7,19 +7,32 @@ export default function Story() {
     const [cuento, setCuento] = useState(null);  
     const [indiceInicio, setIndiceInicio] = useState(0);
     const parrafosPorPantalla = 2;
+    const [modelo3DActual, setModelo3DActual] = useState(null);
+    const [dataCuentos, setDataCuentos] = useState(null);
 
     useEffect(() => {
         fetch('/data/cuentos.json')
         .then(res => res.json())
         .then(data => {
             setCuento(data);
+            const cuentoEncontrado = data.find(c => c.id.toString() === id);
+            setCuento(cuentoEncontrado);
         })
         .catch(err => console.error('Error al cargar el cuento:', err));
     }, [id]);
 
+    useEffect(() => {
+        // Actualiza el modelo 3D cada vez que 'indiceInicio' o 'cuento' cambien.
+        if (cuento && cuento.parrafos.length > 0) {
+            // El modelo 3D debe coincidir con el primer párrafo visible
+            const nuevoModelo = cuento.parrafos[indiceInicio]?.modelo3D;
+            setModelo3DActual(nuevoModelo || null); // Establece el path, o null si no existe
+        }
+    }, [indiceInicio, cuento]);
+
     if (!cuento) return <p className="text-center mt-10">Cargando cuento...</p>;
 
-    const modeloActual = cuento?.parrafos?.[indiceInicio]?.modelo3D || '/modelosP/jardCuento.glb';
+    // const modeloActual = cuento?.parrafos?.[indiceInicio]?.modelo3D || '/modelosP/jardCuento.glb';
     
     const parrafosActuales = cuento.parrafos.slice(
         indiceInicio,
@@ -29,7 +42,7 @@ export default function Story() {
         
         <div className="w-full h-screen relative">
             <div className="absolute  z-10 w-full h-full top-0 left-0 pointer-events-none " >
-                <SceneP modelPath={modeloActual} pageKey={indiceInicio} />
+                <SceneP modelPath={modelo3DActual} />
             </div>
             <div className='p-4  absolute z-20 w-full h-full top-0 left-0 pointer-events-none'>
                 {/* <h1 className="text-3xl font-bold mb-4">{cuento.titulo}</h1> */}

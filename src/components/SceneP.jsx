@@ -2,6 +2,8 @@ import { useEffect, useRef, Suspense } from 'react'; // Necesario para SceneMode
 import { useGLTF, useProgress, Html, OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+
+
 function Loader() {
     const { progress } = useProgress()
     // console.log(progress)
@@ -52,8 +54,9 @@ const SceneP = ({ modelPath, pageKey }) => {
         <Canvas className='w-screen h-sreen' camera={{ position: [5, 0, 5] }} shadows >
             <Suspense fallback={<Loader />}>
             {/* <Canvas className='w-screen h-sreen' camera={{ position: [-0.5, 1, 2] }} shadows > */}
-                <ambientLight intensity={2.5} />
-                <SceneModel key={pageKey} modelPath={modelPath} />
+                <ambientLight intensity={0.5}  color="yellow"/>
+                <directionalLight position={[2 , 5, 3]} intensity={2} castShadow />
+                <SceneModel  modelPath={modelPath} />
                 {/* <primitive
                 object={gltf.scene}
                 position={[0, 0, 0]}
