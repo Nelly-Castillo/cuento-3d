@@ -48,7 +48,7 @@ export default function SceneHome() {
 useGLTF.preload(MODELO_FIJO);
 
     return (
-        <Canvas className="w-1/2 h-full  " camera={{ position: [-0.5, -10, 60] }} shadows>
+        <Canvas className="w-1/2 h-full  " camera={{ position: [-0.5, 0, 60] }} shadows>
             <ambientLight intensity={0.5} />
             <directionalLight position={[1 , 1, 1]} intensity={2} castShadow />
             <Suspense fallback={<Loader />}>

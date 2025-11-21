@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function SearchBox() {
+function SearchBox({ onSearch }) {
     const [query, setQuery] = useState('');
+    const navigate = useNavigate;
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // onSearch(query);
+        if (onSearch) {
+        onSearch(query);
+        } else {
+        console.error("Error: onSearch no fue pasada a SearchBox.");
+        }
         console.log("Buscando:", query);
+        navigate('/books');
     };
 
     return (

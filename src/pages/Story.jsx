@@ -41,19 +41,19 @@ export default function Story() {
             <div className="absolute  z-10 w-full h-full top-0 left-0 pointer-events-none " >
                 <SceneP modelPath={modelo3DActual} />
             </div>
-            <div className='p-4  absolute z-20 w-full h-full top-0 left-0 pointer-events-none'>
+            <div className='pt-30 px-10  absolute z-20 w-full h-full top-0 left-0 pointer-events-none'>
                 {/* <h1 className="text-3xl font-bold mb-4">{cuento.titulo}</h1> */}
-                <div className='w-full flex justify-between content-center'>
+                <div className='mx-3 w-full flex justify-between content-center'>
                     {parrafosActuales.map((p,i) => ( 
                         <div 
                             key={p.id} 
-                            className={`w-2xs p-4 bg-[#0D0630]/50 rounded-xl backdrop-blur-sm    text-white ${i === 0 ? "text-left" : "text-right"}`}
+                            className={`w-2xs p-4 bg-[#FFF5E1]/50 rounded-xl backdrop-blur-sm    text-[#0D0630] ${i === 0 ? "text-left" : "text-right"}`}
                         >
                             <p>{p.texto}</p>
                         </div>
                     ))}
                 </div>
-                <div className="w-full flex justify-between mt-6 pointer-events-auto">
+                <div className="mx-3 w-full flex justify-between mt-6 pointer-events-auto">
                     {indiceInicio > 0 && (
                         <button
                         onClick={() => setIndiceInicio(i => Math.max(0, i - parrafosPorPantalla))} disabled={indiceInicio === 0}

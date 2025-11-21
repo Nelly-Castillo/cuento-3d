@@ -4,7 +4,7 @@ function Home() {
     
     // corrige el link y el correo
     return (
-        <div className=" flex w-full h-screen z-0">
+        <div className="pt-20 flex w-full h-screen z-0">
             <div className="w-1/2 flex items-center justify-evenly flex-col">
                 <div className="block mb-20 items-center">
                     <h1 className="font-[700] text-4xl">Bienvenido</h1>

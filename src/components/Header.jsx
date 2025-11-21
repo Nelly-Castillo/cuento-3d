@@ -1,9 +1,9 @@
 import logo from '/image/Logo.svg'
 import SearchBox from './SearchBox';
 import { Link } from 'react-router-dom';
-function NavBar() {
+function NavBar({ onSearch }) {
     return(
-        <nav className='p-2 z-10'>
+        <nav className='fixed top-0 w-full  shadow-md p-2 z-50'>
             <div className='flex items-center justify-evenly h-1/6'>
                 <div className='flex items-center cursor-pointer'>
                     <Link to="/">
@@ -11,7 +11,7 @@ function NavBar() {
                     </Link>
                 </div>
                 <div>
-                    <SearchBox/>
+                    <SearchBox onSearch={onSearch} />
                 </div>
                 <div className='flex items-center cursor-pointer p-3 rounded-full hover:bg-[#FFF5E1] hover:text-[#CF8D00]' >
                     <Link to="/books" className='flex'>
