@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import SceneHome from "../components/SceneHome";
 
 function Home() {
-    
+    // Hook de React Router que permite navegar entre páginas.
     const navigate = useNavigate();
+    // Función que se ejecuta cuando el usuario hace clic en el botón 
     const handleStartClick = () => {
-        navigate('/books')
+        navigate('/books') // Navega hacia la lista de libros
     };
     return (
         <div className="pt-20 flex w-full h-screen z-0">
