@@ -3,11 +3,17 @@ import { useEffect, useState } from 'react';
 import SceneP from '../components/SceneP';
 
 export default function Story() {
+    // Obtiene el ID del cuento desde la URL.
     const { id } = useParams(); 
+    // Hook para navegar entre rutas.
     const navigate = useNavigate();
+    // Guarda el cuento cargado desde el JSON.
     const [cuento, setCuento] = useState(null);  
+    // Índice del párrafo actual.
     const [indiceInicio, setIndiceInicio] = useState(0);
+    // Número de párrafos visibles al mismo tiempo.
     const parrafosPorPantalla = 2;
+    // Modelo 3D correspondiente al párrafo.
     const [modelo3DActual, setModelo3DActual] = useState(null);
 
     // carga el cuento 
@@ -15,33 +21,36 @@ export default function Story() {
         fetch('/data/cuentos.json')
         .then(res => res.json())
         .then(data => {
+            // Guarda el cuento completo en estado.
             setCuento(data);
         })
         .catch(err => console.error('Error al cargar el cuento:', err));
-    }, [id]);
+    }, [id]); // Se ejecuta cuando cambia el ID del cuento.
 
     //Actualiza el modelo por parrafo
 
     useEffect(() => {
         if (cuento && cuento.parrafos.length > 0) {
             const nuevoModelo = cuento.parrafos[indiceInicio]?.modelo3D;
-            setModelo3DActual(nuevoModelo || null);
+            // Si el párrafo tiene modelo, lo carga.
+            setModelo3DActual(nuevoModelo || null); 
         }
-    }, [indiceInicio, cuento]);
+    }, [indiceInicio, cuento]);  // Se ejecuta al cambiar de párrafo o al cargar el cuento.
 
-    //uso de teclas 
+    //manejo de teclas 
     useEffect(() => {
     function manejarTeclas(e) {
-        // Avanzar → 
+        // Avanzar →  a los siguientes párrafos
         if (e.key === "ArrowRight") {
             if (indiceInicio + parrafosPorPantalla < cuento.parrafos.length) {
                 setIndiceInicio(i =>
+                    // Asegura que no pase del último párrafo
                     Math.min(cuento.parrafos.length - parrafosPorPantalla, i + parrafosPorPantalla)
                 );
             }
         }
 
-        // Regresar ←
+        // Regresar ← a los párrafos anteriores
         if (e.key === "ArrowLeft") {
             if (indiceInicio > 0) {
                 setIndiceInicio(i => Math.max(0, i - parrafosPorPantalla));
@@ -50,12 +59,13 @@ export default function Story() {
     }
 
     window.addEventListener("keydown", manejarTeclas);
-
+    // Limpia el evento al desmontar el componente
     return () => {
             window.removeEventListener("keydown", manejarTeclas);
         };
     }, [indiceInicio, cuento]); 
-
+    
+    // Pantalla de carga mientras se trae el JSON
     if (!cuento) {
         return (
             <div className="w-full h-screen flex justify-center items-center">
@@ -67,7 +77,7 @@ export default function Story() {
             </div>
         )
     }
-    
+    // Obtiene los párrafos visibles en la pantalla
     const parrafosActuales = cuento.parrafos.slice(
         indiceInicio,
         indiceInicio + parrafosPorPantalla
@@ -76,6 +86,7 @@ export default function Story() {
         
         <div className="w-full h-screen relative">
             <div className="absolute  z-10 w-full h-full top-0 left-0 pointer-events-none " >
+                {/* Renderiza el modelo 3D solo si existe */}
                 {/* <SceneP modelPath={modelo3DActual} /> */}
                 {modelo3DActual ? (
                     <SceneP modelPath={modelo3DActual} />
@@ -83,9 +94,10 @@ export default function Story() {
                     null
                 )}
             </div>
-            <div className='pt-30 px-10  absolute z-20 w-full h-full top-0 left-0 pointer-events-none'>
-                {/* <h1 className="text-3xl font-bold mb-4">{cuento.titulo}</h1> */}
+            <div className='pt-24 px-10  absolute z-20 w-full h-full top-0 left-0 pointer-events-none'>
+                <h1 className="text-3xl font-bold mb-4">{cuento.titulo}</h1>
                 <div className='mx-3 w-full flex justify-between content-center'>
+                    {/* Párrafos actuales, alineados uno a la izquierda y otro a la derecha */}
                     {parrafosActuales.map((p,i) => ( 
                         <div 
                             key={p.id} 
@@ -95,7 +107,9 @@ export default function Story() {
                         </div>
                     ))}
                 </div>
+                {/* Botones de navegación */}
                 <div className="mx-3 w-full flex justify-between mt-6 pointer-events-auto">
+                    {/* Botón ← retroceso */}
                     {indiceInicio > 0 && (
                         <button
                         onClick={() => setIndiceInicio(i => Math.max(0, i - parrafosPorPantalla))} disabled={indiceInicio === 0}
@@ -105,6 +119,7 @@ export default function Story() {
                             </svg>
                         </button>
                     )}
+                     {/* Botón → avanzar y botón REGRESAR al final */}
                     {indiceInicio + parrafosPorPantalla < cuento.parrafos.length ? (
                         <button
                         onClick={() => setIndiceInicio(i => Math.min(cuento.parrafos.length - parrafosPorPantalla, i + parrafosPorPantalla))} disabled={indiceInicio + parrafosPorPantalla >= cuento.parrafos.length}
@@ -114,6 +129,7 @@ export default function Story() {
                             </svg>
                         </button>
                     ) : (
+                        // Si ya no hay más párrafos → muestra botón para volver al menú
                             <button
                                 onClick={() => navigate('/books')}
                                 className="px-6 py-3 bg-[#0D0630]  text-[#FFF5E1] rounded-full font-bold shadow-lg  hover:bg-[#32C5FE]  transition duration-300 mb-10"
