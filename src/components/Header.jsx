@@ -1,18 +1,24 @@
 import logo from '/image/Logo.svg'
 import SearchBox from './SearchBox';
 import { Link } from 'react-router-dom';
+// Componente NavBar: barra de navegación principal
+// Recibe la función onSearch que luego se pasa al SearchBox
 function NavBar({ onSearch }) {
     return(
+        // NAV: barra fija en la parte superior
         <nav className='fixed top-0 w-full  shadow-md p-2 z-50'>
             <div className='flex items-center justify-evenly h-1/6'>
+            {/* LOGO — Al hacer clic lleva al Home */}
                 <div className='flex items-center cursor-pointer'>
                     <Link to="/">
                         <img src={logo} alt= "Logo" width={50}></img>
                     </Link>
                 </div>
+                {/* BARRA DE BÚSQUEDA */}
                 <div>
                     <SearchBox onSearch={onSearch} />
                 </div>
+                {/* BOTÓN LIBROS */}
                 <div className='flex items-center cursor-pointer p-3 rounded-full hover:bg-[#FFF5E1] hover:text-[#CF8D00]' >
                     <Link to="/books" className='flex'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#CF8D00" className="bi bi-book" viewBox="0 0 16 16">
@@ -21,6 +27,7 @@ function NavBar({ onSearch }) {
                         <p className='ml-2'>Libros</p>
                     </Link>
                 </div>
+                {/* BOTÓN AYUDA */}
                 <div  className='flex items-center cursor-pointer p-3 rounded-full hover:bg-[#FFF5E1] hover:text-[#CF8D00]' >
                     <Link to="/help" className='flex'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#CF8D00" className="bi bi-info-circle-fill" viewBox="0 0 16 16">
