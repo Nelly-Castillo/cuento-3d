@@ -2,23 +2,31 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SearchBox({ onSearch }) {
+    // Estado local para almacenar el texto que el usuario escribe en la caja de búsqueda.
     const [query, setQuery] = useState('');
-    const navigate = useNavigate;
-
+     // Hook de React Router para navegar entre rutas
+    const navigate = useNavigate();
+    // Se ejecuta cuando el usuario envía el formulario (Enter o click)
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Evita que la página se recargue.
+        // quita espacios al inicio/fin
+        const texto = query.trim();
         // onSearch(query);
+        // Si el componente padre envió la función onSearch, se ejecuta
         if (onSearch) {
-        onSearch(query);
+            onSearch(texto); // Enviamos la búsqueda al componente padre
         } else {
-        console.error("Error: onSearch no fue pasada a SearchBox.");
+            console.error("Error: onSearch no fue pasada a SearchBox.");
         }
-        console.log("Buscando:", query);
+        // console.log("Buscando:", texto);
+        // Después de buscar, manda al usuario a la página de libros
         navigate('/books');
     };
 
     return (
+        // Formulario visual del buscador
         <form onSubmit={handleSubmit} className="flex items-center  rounded-full p-2 bg-[#FFF5E1]">
+            {/* Input donde el usuario escribe su búsqueda */}
             <input
                 type="text"
                 placeholder="Buscar libro..."
