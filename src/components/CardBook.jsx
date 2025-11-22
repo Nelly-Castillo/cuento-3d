@@ -22,6 +22,7 @@ function CardBook (){
     }, []);
 
     if (!cuento) return <p>Cargando...</p>;
+    
     const handleClick = () => {
         navigate(`/story/${cuento.id}`);
     };

@@ -1,14 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import SceneHome from "../components/SceneHome";
 
 function Home() {
     
-    // corrige el link y el correo
+    const navigate = useNavigate();
+    const handleStartClick = () => {
+        navigate('/books')
+    };
     return (
         <div className="pt-20 flex w-full h-screen z-0">
             <div className="w-1/2 flex items-center justify-evenly flex-col">
                 <div className="block mb-20 items-center">
                     <h1 className="font-[700] text-4xl">Bienvenido</h1>
-                    <p>VoxelCraft</p>
+                    <p className="p-2">VoxelCraft</p>
+                    <div className="pt-5 justify-center">
+                        <button
+                            onClick={handleStartClick}
+                            className="bg-[#0D0630]  text-[#FFF5E1] font-bold pt- py-3 px-8  rounded-full shadow-lg  hover:bg-[#32C5FE]  transition duration-300 mb-10 "
+                        >
+                            Iniciar Lectura 
+                        </button>
+                    </div>
                 </div>
                 <div className='flex items-center '>
                     <p className="flex ml-1"> Contacto: </p>

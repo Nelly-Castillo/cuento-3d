@@ -1,19 +1,29 @@
 import { useEffect, useRef, Suspense } from 'react'; 
 import { Canvas, useLoader, useFrame } from '@react-three/fiber'; 
-import { Html, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
+import { OrbitControls, useGLTF, useProgress } from '@react-three/drei';
 import * as THREE from 'three'; 
 
 const MODELO_FIJO = '/modelosP/home.glb';
 
 function Loader() {
     const { progress } = useProgress();
-    return <Html center>{progress.toFixed(0)} % </Html>;
+    //En caso de que no funcione regresar a esta opcion
+    // return <Html center>{progress.toFixed(0)} % loaded</Html>
+    return (
+            <Html center>
+                <div className="text-white text-lg mb-2">
+                        Cargando modelo: {progress.toFixed(0)}%
+                </div>
+                <div className="flex flex-row gap-2">
+                    <div className="w-4 h-4 rounded-full bg-[#0D0630] animate-bounce [animation-delay:.7s]"></div>
+                    <div className="w-4 h-4 rounded-full bg-[#18314F] animate-bounce [animation-delay:.3s]"></div>
+                    <div className="w-4 h-4 rounded-full bg-[#384E77] animate-bounce [animation-delay:.7s]"></div>
+                </div>
+            </Html>
+    )
 }
 
 function Model() {
-    //     const gltf = useLoader(GLTFLoader, modelPath, (loader) => {
-    //     loader.manager.reset();
-    // });
     const { scene, animations } = useGLTF(MODELO_FIJO); 
     const group = useRef();
     const mixer = useRef();

@@ -27,9 +27,17 @@ export default function Story() {
         }
     }, [indiceInicio, cuento]);
 
-    if (!cuento) return <p className="text-center mt-10">Cargando cuento...</p>;
-
-    // const modeloActual = cuento?.parrafos?.[indiceInicio]?.modelo3D || '/modelosP/jardCuento.glb';
+    if (!cuento) {
+        return (
+            <div className="w-full h-screen flex justify-center items-center">
+                <div className="flex flex-row gap-2">
+                    <div className="w-4 h-4 rounded-full bg-[#0D0630] animate-bounce [animation-delay:.7s]"></div>
+                    <div className="w-4 h-4 rounded-full bg-[#18314F] animate-bounce [animation-delay:.3s]"></div>
+                    <div className="w-4 h-4 rounded-full bg-[#384E77] animate-bounce [animation-delay:.7s]"></div>
+                </div>
+            </div>
+        )
+    }
     
     const parrafosActuales = cuento.parrafos.slice(
         indiceInicio,
@@ -39,7 +47,12 @@ export default function Story() {
         
         <div className="w-full h-screen relative">
             <div className="absolute  z-10 w-full h-full top-0 left-0 pointer-events-none " >
-                <SceneP modelPath={modelo3DActual} />
+                {/* <SceneP modelPath={modelo3DActual} /> */}
+                {modelo3DActual ? (
+                    <SceneP modelPath={modelo3DActual} />
+                ) : (
+                    null
+                )}
             </div>
             <div className='pt-30 px-10  absolute z-20 w-full h-full top-0 left-0 pointer-events-none'>
                 {/* <h1 className="text-3xl font-bold mb-4">{cuento.titulo}</h1> */}
