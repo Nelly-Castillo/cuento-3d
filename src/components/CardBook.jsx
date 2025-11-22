@@ -23,6 +23,7 @@ function CardBook (){
 
     if (!cuento) return <p>Cargando...</p>;
     
+    // Maneja el click en la tarjeta → manda al usuario a la historia
     const handleClick = () => {
         navigate(`/story/${cuento.id}`);
     };
@@ -30,7 +31,9 @@ function CardBook (){
         <div 
             onClick={handleClick}
             className="flex flex-col items-center p-3.5 rounded-xl m-1 hover:bg-[#FFF5E1] hover:text-[#CF8D00]">
+            {/* Título del cuento */}
             <h1 className="pb-1">{cuento.titulo}</h1>
+            {/* Imagen / portada del cuento */}
             <img 
                 src={cuento.imagen}
                 alt="portada del libro" 
@@ -40,6 +43,7 @@ function CardBook (){
                     rounded-xl
                 "
             />
+            {/* Autor */}
             <p className="pt-1">{cuento.autor}</p>
         </div>
     );
