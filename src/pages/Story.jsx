@@ -116,7 +116,7 @@ export default function Story() {
                     ) : (
                             <button
                                 onClick={() => navigate('/books')}
-                                className="px-6 py-3 bg-[#CF8D00] text-white rounded-full font-bold shadow-lg"
+                                className="px-6 py-3 bg-[#0D0630]  text-[#FFF5E1] rounded-full font-bold shadow-lg  hover:bg-[#32C5FE]  transition duration-300 mb-10"
                             >
                                 Regresar 
                             </button>
