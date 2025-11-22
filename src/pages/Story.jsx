@@ -1,14 +1,16 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SceneP from '../components/SceneP';
 
 export default function Story() {
     const { id } = useParams(); 
+    const navigate = useNavigate();
     const [cuento, setCuento] = useState(null);  
     const [indiceInicio, setIndiceInicio] = useState(0);
     const parrafosPorPantalla = 2;
     const [modelo3DActual, setModelo3DActual] = useState(null);
 
+    // carga el cuento 
     useEffect(() => {
         fetch('/data/cuentos.json')
         .then(res => res.json())
@@ -18,14 +20,41 @@ export default function Story() {
         .catch(err => console.error('Error al cargar el cuento:', err));
     }, [id]);
 
+    //Actualiza el modelo por parrafo
+
     useEffect(() => {
-        // Actualiza el modelo 3D cada vez que 'indiceInicio' o 'cuento' cambien.
         if (cuento && cuento.parrafos.length > 0) {
-            // El modelo 3D debe coincidir con el primer párrafo visible
             const nuevoModelo = cuento.parrafos[indiceInicio]?.modelo3D;
-            setModelo3DActual(nuevoModelo || null); // Establece el path, o null si no existe
+            setModelo3DActual(nuevoModelo || null);
         }
     }, [indiceInicio, cuento]);
+
+    //uso de teclas 
+    useEffect(() => {
+    function manejarTeclas(e) {
+        // Avanzar → 
+        if (e.key === "ArrowRight") {
+            if (indiceInicio + parrafosPorPantalla < cuento.parrafos.length) {
+                setIndiceInicio(i =>
+                    Math.min(cuento.parrafos.length - parrafosPorPantalla, i + parrafosPorPantalla)
+                );
+            }
+        }
+
+        // Regresar ←
+        if (e.key === "ArrowLeft") {
+            if (indiceInicio > 0) {
+                setIndiceInicio(i => Math.max(0, i - parrafosPorPantalla));
+            }
+        }
+    }
+
+    window.addEventListener("keydown", manejarTeclas);
+
+    return () => {
+            window.removeEventListener("keydown", manejarTeclas);
+        };
+    }, [indiceInicio, cuento]); 
 
     if (!cuento) {
         return (
@@ -76,7 +105,7 @@ export default function Story() {
                             </svg>
                         </button>
                     )}
-                    {indiceInicio + parrafosPorPantalla < cuento.parrafos.length && (
+                    {indiceInicio + parrafosPorPantalla < cuento.parrafos.length ? (
                         <button
                         onClick={() => setIndiceInicio(i => Math.min(cuento.parrafos.length - parrafosPorPantalla, i + parrafosPorPantalla))} disabled={indiceInicio + parrafosPorPantalla >= cuento.parrafos.length}
                         >
@@ -84,6 +113,13 @@ export default function Story() {
                                 <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
                             </svg>
                         </button>
+                    ) : (
+                            <button
+                                onClick={() => navigate('/books')}
+                                className="px-6 py-3 bg-[#CF8D00] text-white rounded-full font-bold shadow-lg"
+                            >
+                                Regresar 
+                            </button>
                     )}
                 </div>
             </div>
